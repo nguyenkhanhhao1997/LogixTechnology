@@ -1,5 +1,6 @@
 ﻿using LogixTechnology.Constant;
 using LogixTechnology.Data.Models;
+using LogixTechnology.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace LogixTechnology.Configures
@@ -27,9 +28,9 @@ namespace LogixTechnology.Configures
                 }
             }));
 
-            //services.AddScoped<IStoreEmployeeManager, StoreEmployeeManager>();
-
-            //services.AddScoped<IStepMediaRepository, StepMediaRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<IUserActivityRepositores, UserActivityRepositores>();
         }
     }
 }
