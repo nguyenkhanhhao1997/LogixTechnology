@@ -36,12 +36,12 @@ namespace LogixTechnology.Controllers
         /// </summary>
         /// <param name="userInput"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         [Route("getall")]
-        public async Task<IEnumerable<MovieOutput>> GetAll(int userId)
+        public async Task<IEnumerable<MovieOutput>> GetAll(GetMoviesInput movieInput)
         {
             var filesPath = Directory.GetCurrentDirectory();
-            var listMovie = await this._movieRepository.GetAll();
+            var listMovie = await this._movieRepository.GetAll(movieInput);
             var moviesResult = listMovie.Select(s => new MovieOutput
             {
                 MovieId = s.MovieId,
@@ -49,7 +49,7 @@ namespace LogixTechnology.Controllers
                 Image = filesPath + s.Image,
                 LikeNumber = this._userActivityRepositores.CountLike(s.MovieId).Result,
                 DisLikeNumber = this._userActivityRepositores.CountDisLike(s.MovieId).Result,
-                UserReact = this._userActivityRepositores.GetUserReact(userId, s.MovieId).Result
+                UserReact = this._userActivityRepositores.GetUserReact(movieInput.UserID, s.MovieId).Result
             }).ToList();
             return moviesResult;
         }

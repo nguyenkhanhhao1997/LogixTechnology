@@ -27,10 +27,11 @@ namespace LogixTechnology.Data.Repositories
         /// <summary>
         /// GetAll
         /// </summary>
+        /// <param name="movieInput"></param>
         /// <returns>status</returns>
-        public async Task<IEnumerable<Movie>> GetAll()
+        public async Task<IEnumerable<Movie>> GetAll(GetMoviesInput movieInput)
         {
-            var movies =  await this._db.Movies.ToListAsync();
+            var movies =  await this._db.Movies.Skip(movieInput.Skip).Take(5).ToListAsync();
             return movies;
         }
     }

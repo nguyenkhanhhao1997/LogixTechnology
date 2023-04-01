@@ -7,7 +7,8 @@ namespace LogixTechnology.Data.Repositories
         /// <summary>
         /// GetAll
         /// </summary>
+        /// <param name="movieInput"></param>
         /// <returns>status</returns>
-        Task<IEnumerable<Movie>> GetAll();
+        Task<IEnumerable<Movie>> GetAll(GetMoviesInput movieInput);
     }
 }
