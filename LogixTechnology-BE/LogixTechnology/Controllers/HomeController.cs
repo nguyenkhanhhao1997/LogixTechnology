@@ -1,11 +1,13 @@
 ﻿using LogixTechnology.Data.Models;
 using LogixTechnology.Data.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LogixTechnology.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class HomeController : ControllerBase
     {
         /// <summary>

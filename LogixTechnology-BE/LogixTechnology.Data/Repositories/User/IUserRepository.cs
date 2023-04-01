@@ -16,6 +16,6 @@ namespace LogixTechnology.Data.Repositories
         /// </summary>
         /// <param name="userInput"></param>
         /// <returns>status</returns>
-        Task<bool> CheckUser(UserInput userInput);
+        Task<User> GetUser(UserInput userInput);
     }
 }

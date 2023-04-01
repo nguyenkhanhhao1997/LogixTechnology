@@ -52,16 +52,11 @@ namespace LogixTechnology.Data.Repositories
         /// </summary>
         /// <param name="userInput"></param>
         /// <returns>status</returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public async Task<bool> CheckUser(UserInput userInput)
+        public async Task<User> GetUser(UserInput userInput)
         {
             var password = GetMD5(userInput.Password);
             var user = this._db.Users.Where(s => s.UserName == userInput.UserName && s.Password == password).FirstOrDefault();
-            if(user != null)
-            {
-                return true;
-            }
-            return false;
+            return user;
         }
 
         /// <summary>

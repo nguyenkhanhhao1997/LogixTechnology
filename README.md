@@ -1,21 +1,17 @@
-## Update Database
+## Create database
 
-### Change connectionstrings
+Go to file `~\LogixTechnology-BE\LogixTechnology\appsettings.json` and change the connectionstrings
 
-Go to file `~\StudentManagement\StudentManagement\appsettings.json` and change the connectionstrings
-
-### run dotnet-ef
-
-Open Developer Powershell in VS
-cd to `StudentManagement` project
-run `dotnet-ef database update` to create database
+Open Package Manager Console
+Set default project is `LogixTechnology.Data`
+run `update-database` to create database
 
 ## Run project
 
 ### BE
 
-Go to file `~\StudentManagement\StudentManagement\Startup.cs` and change the CORS to your FE link
-Run the StudentManagement project
+Go to file `~\LogixTechnology-BE\LogixTechnology\appsettings.json` and change the `ApiCorsPolicy` to your FE link
+Run the project
 
 ### FE
 

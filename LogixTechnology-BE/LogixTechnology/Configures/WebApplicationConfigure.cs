@@ -11,6 +11,8 @@ namespace LogixTechnology.Configures
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.MapControllers();
