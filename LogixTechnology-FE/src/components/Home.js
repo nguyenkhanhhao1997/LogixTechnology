@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Redirect } from "react-router-dom";
 import callApi from "../api/apiService";
@@ -10,7 +10,6 @@ import {
   IconButton,
 } from "@material-ui/core";
 import { ThumbDown, ThumbUp } from "@material-ui/icons";
-import logo from "../logo.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,48 +27,64 @@ const Home = () => {
   const [token, setToken] = useState(sessionStorage.getItem("token"));
   const [login, setLogin] = useState(sessionStorage.getItem("login"));
   const [movies, setMovies] = useState({});
-  const [numberSkip, setNumberSkip] = useState(0);
+  const skipNum = useRef(0);
+  const isFullData = useRef(false);
 
   useEffect(() => {
     if (token !== null && userId !== null) {
       loadMoreMovie();
     }
     window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
+  //load movies
   const loadMoreMovie = () => {
-    //get movies data
     let data = {
-      skip: numberSkip,
+      skip: skipNum.current,
       userId: userId,
     };
-    console.log(data);
     let headers = { Authorization: `Bearer ${token}` };
     callApi(`home/getall`, "POST", data, headers).then((item) => {
       setMovies((movies) => [...movies, ...item.data]);
-      setNumberSkip(numberSkip + 5);
+      if (item.data === null || item.data.length < 5) {
+        alert("There is nothing else to show!");
+        isFullData.current = true;
+      }
     });
   };
 
+  // got more data when scrolled to the bottom
   const handleScroll = (e) => {
-    const scrollHeight = e.target.documentElement.scrollHeight;
-    const currentHeight = Math.ceil(
-      e.target.documentElement.scrollTop + window.innerHeight
-    );
-    if (currentHeight + 1 >= scrollHeight) {
-      loadMoreMovie();
+    if (isFullData.current === false) {
+      const scrollHeight = e.target.documentElement.scrollHeight;
+      const currentHeight = Math.ceil(
+        e.target.documentElement.scrollTop + window.innerHeight
+      );
+      if (currentHeight + 1 >= scrollHeight) {
+        skipNum.current = skipNum.current + 5;
+        loadMoreMovie();
+      }
     }
   };
 
   const handleUserReact = (movieId, userReact, action) => {
+    // if action equals userReact, set action = 0 (None)
     let act = 0;
     if (userReact !== action) {
       act = action;
     }
 
-    let isLike = false;
+    // like or unlike
+    let isLike = 0; // do nothing
     if (action === 1 && act === 1) {
-      isLike = true;
+      isLike = 1; // like
+    } else if (action === 1 && act === 0) {
+      isLike = 2; //unlike
+    } else if (action === 2 && userReact === 1) {
+      isLike = 2; //unlike
     }
 
     let data = {
@@ -84,9 +99,9 @@ const Home = () => {
         let newList = movies.map((item) => {
           if (item.movieId === movieId) {
             item.userReact = act;
-            if (isLike) {
+            if (isLike === 1) {
               item.likeNumber = item.likeNumber + 1;
-            } else {
+            } else if (isLike === 2) {
               item.likeNumber = item.likeNumber - 1;
             }
           }
@@ -115,9 +130,9 @@ const Home = () => {
             >
               <CardHeader title={movie.title} />
               <CardMedia
-                component="img"
-                height="250"
-                image={logo}
+                component="iframe"
+                height="400"
+                image={movie.image}
                 alt="Movie Image"
               />
               <CardActions disableSpacing>

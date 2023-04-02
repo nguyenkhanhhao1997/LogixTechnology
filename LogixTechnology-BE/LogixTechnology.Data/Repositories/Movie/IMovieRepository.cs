@@ -10,5 +10,12 @@ namespace LogixTechnology.Data.Repositories
         /// <param name="movieInput"></param>
         /// <returns>status</returns>
         Task<IEnumerable<Movie>> GetAll(GetMoviesInput movieInput);
+
+        /// <summary>
+        /// CheckExistMovie
+        /// </summary>
+        /// <param name="movieId"></param>
+        /// <returns></returns>
+        Task<bool> CheckExistMovie(int movieId);
     }
 }

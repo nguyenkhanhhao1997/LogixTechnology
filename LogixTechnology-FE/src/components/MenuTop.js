@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Typography, IconButton } from "@material-ui/core";
@@ -31,17 +31,6 @@ const MenuTop = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const [logout, setLogout] = useState(false);
-  const [login, setLogin] = useState(false);
-  const [userName, setUserName] = useState();
-
-  useEffect(() => {
-    if (sessionStorage.getItem("login")) {
-      setLogin(true);
-    }
-    if (sessionStorage.getItem("userName")) {
-      setUserName(sessionStorage.getItem("userName"));
-    }
-  }, []);
 
   const btnLogout = (e) => {
     e.preventDefault();
@@ -75,16 +64,6 @@ const MenuTop = () => {
         </Link>
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>
-        <Link to="/login" className={classes.linkTo}>
-          Login
-        </Link>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <Link to="/register" className={classes.linkTo}>
-          Register
-        </Link>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
         <Link to="/login" className={classes.linkTo} onClick={btnLogout}>
           logout
         </Link>
@@ -100,9 +79,6 @@ const MenuTop = () => {
     <div className={classes.root}>
       <AppBar position="static" color="primary">
         <Toolbar>
-          {/* <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton> */}
           <Typography variant="h6" className={classes.title}>
             <Link to="/" className={classes.linkHome}>
               Logix Technology

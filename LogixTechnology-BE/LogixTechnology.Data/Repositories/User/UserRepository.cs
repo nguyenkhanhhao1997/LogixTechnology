@@ -1,4 +1,5 @@
 ﻿using LogixTechnology.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,6 +58,21 @@ namespace LogixTechnology.Data.Repositories
             var password = GetMD5(userInput.Password);
             var user = this._db.Users.Where(s => s.UserName == userInput.UserName && s.Password == password).FirstOrDefault();
             return user;
+        }
+
+        /// <summary>
+        /// CheckExistUser
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public async Task<bool> CheckExistUser(int userId)
+        {
+            var data = await this._db.Users.Where(s => s.UserId == userId).FirstOrDefaultAsync();
+            if (data == null)
+            {
+                return false;
+            }
+            return true;
         }
 
         /// <summary>

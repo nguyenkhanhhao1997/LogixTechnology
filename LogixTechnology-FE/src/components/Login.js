@@ -7,6 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import callApi from "../api/apiService";
 import { Redirect } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -123,6 +124,7 @@ const Login = () => {
                   />
                 </Grid>
                 <Grid item xs={12}>
+                  <a href="/register">Register new account</a>
                   <Button
                     type="submit"
                     fullWidth

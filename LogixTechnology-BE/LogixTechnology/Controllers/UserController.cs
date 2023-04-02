@@ -45,8 +45,12 @@ namespace LogixTechnology.Controllers
         [AllowAnonymous]
         public async Task<UserOutput> Login(UserInput userInput)
         {
-            var user = await this._userRepository.GetUser(userInput);
             var result = new UserOutput();
+            if (string.IsNullOrEmpty(userInput.UserName) || string.IsNullOrEmpty(userInput.Password))
+            {
+                return result;
+            }    
+            var user = await this._userRepository.GetUser(userInput);
             if (user != null)
             {
                 var claims = new[] {
@@ -82,6 +86,10 @@ namespace LogixTechnology.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(UserInput userInput)
         {
+            if (string.IsNullOrEmpty(userInput.UserName) || string.IsNullOrEmpty(userInput.Password))
+            {
+                return Ok("failed");
+            }
             var result = await this._userRepository.Register(userInput);
             if (!result)
             {

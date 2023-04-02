@@ -55,31 +55,28 @@ const useStyles = makeStyles((theme) => ({
 const Register = () => {
   const classes = useStyles();
   const [success, setSuccess] = useState(false);
-  const [login, setLogin] = useState(false);
-
-  useEffect(() => {
-    if (sessionStorage.getItem("login")) {
-      setLogin(true);
-    }
-  }, []);
-
-  /* set error alert submit form */
   const [error, setError] = useState(true);
   const [msgError, setMsgError] = useState(null);
 
-  /*SET attribute in Form*/
+  useEffect(() => {
+    if (sessionStorage.getItem("login")) {
+      setSuccess(true);
+    }
+  }, []);
+
+  //form data
   const ConfigData = Object.freeze({
     UserName: "",
     Password: "",
   });
 
-  /*SET Valid attribute*/
+  //valid attributes
   const ConfigDataValid = Object.freeze({
     UserNameValid: null,
     PasswordValid: null,
   });
-  const [infoData, updateInfoData] = React.useState(ConfigData);
-  const [infoDataValid, updateInfoDataValid] = React.useState(ConfigDataValid);
+  const [infoData, updateInfoData] = useState(ConfigData);
+  const [infoDataValid, updateInfoDataValid] = useState(ConfigDataValid);
 
   const handleChange = (e) => {
     checkDataValid(e);
@@ -137,13 +134,6 @@ const Register = () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            {/* <ButtonBase className={classes.image}>
-              <img
-                className={classes.img}
-                alt="complex"
-                src="logo-top-new.svg"
-              />
-            </ButtonBase> */}
             <Typography className={classes.title} variant="h4">
               Register
             </Typography>

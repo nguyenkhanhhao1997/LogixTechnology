@@ -6,6 +6,8 @@ Open Package Manager Console
 Set default project is `LogixTechnology.Data`
 run `update-database` to create database
 
+Open file `~\Database\insert-movie.sql` and run the query to insert default movie data
+
 ## Run project
 
 ### BE
@@ -15,9 +17,7 @@ Run the project
 
 ### FE
 
-Go to file `~\StudentManagement\client-app\src\api\apiService.js` and change `API_URL` to your BE link
+Go to file `~\LogixTechnology-BE\\client-app\src\api\apiService.js` and change `API_URL` to your BE link
 In the `client-app` open command
 run `npm install` to install all packages
 run `npm start` to run FE site
-List students: `~/home`
-Add list students: `~/add-list-student`

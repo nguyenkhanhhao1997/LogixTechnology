@@ -34,5 +34,20 @@ namespace LogixTechnology.Data.Repositories
             var movies =  await this._db.Movies.Skip(movieInput.Skip).Take(5).ToListAsync();
             return movies;
         }
+
+        /// <summary>
+        /// CheckExistMovie
+        /// </summary>
+        /// <param name="movieId"></param>
+        /// <returns></returns>
+        public async Task<bool> CheckExistMovie(int movieId)
+        {
+            var data = await this._db.Movies.Where(s => s.MovieId == movieId).FirstOrDefaultAsync();
+            if (data == null)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
