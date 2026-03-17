@@ -36,6 +36,7 @@ namespace LogixTechnology.Configures
             //DI configure
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<IArticleRepository, ArticleRepository>();
             services.AddScoped<IUserActivityRepositores, UserActivityRepositores>();
 
             //JWT configure

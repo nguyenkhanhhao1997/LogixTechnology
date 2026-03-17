@@ -14,6 +14,7 @@ namespace LogixTechnology.Data.Models
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Article> Articles { get; set; }
         public DbSet<UserActivity> UserActivites { get; set; }
     }
 }
